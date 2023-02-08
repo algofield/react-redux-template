@@ -1,7 +1,8 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = () => {
   
@@ -11,7 +12,6 @@ module.exports = () => {
     return acc;
   }, {})
   return {
-    mode: process.env.NODE_ENV,
     entry: {
       client: path.join(__dirname, 'src', 'client', 'index.js'),
     },
@@ -24,6 +24,7 @@ module.exports = () => {
     },
     plugins : [
       new webpack.DefinePlugin(envKeys),
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'src', 'client', 'templates', 'index.ejs'),
         filename: 'index.html',

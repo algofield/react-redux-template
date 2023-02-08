@@ -2,3 +2,5 @@
 node_modules
 certificate.crt
 privateKey.key
+.env
+dist/
