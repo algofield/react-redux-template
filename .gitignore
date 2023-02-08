@@ -1,2 +1,4 @@
 .DS_Store
 node_modules
+certificate.crt
+privateKey.key
