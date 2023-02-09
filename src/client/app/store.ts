@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterReducer from '../Features/counter-slice';
+import counterReducer from '../features/counter/counter-slice';
 
 export const store = configureStore({
   reducer: {
@@ -8,5 +8,5 @@ export const store = configureStore({
   },
 });
 
-export type AppDispatch = type store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

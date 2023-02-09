@@ -16,12 +16,18 @@ const counterSlice = createSlice({
     // increment
     // decrement
     // reset
-    incremented(state) {
+    incrementCounter(state) {
       // it is ok to do this because immer makes it immutable under the hood
       state.value++;
+    },
+    decrementCounter(state) {
+      state.value--;
+    },
+    resetCounter(state) {
+      state.value = 0;
     }
   },
 });
 
-export const { incremented } = counterSlice.actions;
+export const { incrementCounter, decrementCounter, resetCounter } = counterSlice.actions;
 export default counterSlice.reducer;
