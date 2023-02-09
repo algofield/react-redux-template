@@ -10,7 +10,8 @@
     "prod:serve": "node src/server",
     "serve": "nodemon --watch src/server",
     "test": "jest --watch",
-    "lint": "eslint src tests --fix"
+    "lint": "eslint src tests --fix",
+    "makeCert": "openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj '/CN=localhost' -keyout src/server/ssl/localhost-privkey.pem -out src/server/ssl/localhost-cert.pem -days 365"
   },
   "repository": {
     "type": "git",
