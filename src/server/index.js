@@ -1,38 +1,32 @@
-const express = require('express');
-const cors = require('cors');
+const http2 = require('http2');
+const fs = require('fs');
 const path = require('path');
+const util = require('util');
+// const File = require('./tools/file.js');
+const MIMETYPES = require('./mimetypes.js');
 
-app = express();
-const port = parseInt(process.env.PORT, 10) || 3000;
+const dirname = path.resolve();
+console.log(dirname);
+const port = 8443;
 
-app.use(cors());
-app.use(express.static('dist'));
+const readFile = util.promisify(fs.readFile);
 
-app.listen(port, e => {
-  if (e) {
-    console.error(e);
-  } else {
-    let [hours, minutes, seconds] = (new Date()).toString().slice(16, 24).split(':').map(Number);
-    let amPm = hours >= 12 ? 'pm' : 'am';
-    if (hours > 12) {
-      hours -= 12;
-    } else if (hours === 0) {
-      hours += 12;
-    }
-    const time = `${hours}:${minutes}:{seconds} ${amPm}`;
-    console.log(`server launched at ${time} on localhost:${port}`)
-  }
-});
-// const fs = require('fs');
-// const http2Express = require('http2-express-bridge')
-// const http2 = require('http2')
-// const dev = process.env.NODE_ENV !== 'production';
-// const options = {
-//   key: fs.readFileSync(path.join(__dirname, 'auth', '/privateKey.key')),
-//   cert: fs.readFileSync(path.join(__dirname, 'auth', '/certificate.crt')),
-//   // allowHTTP1: true
-// };
-// only change required
-// const app = http2Express(express)
-// const server = http2.createSecureServer(options, app)
-// server.listen(3000)
+(async () => {
+  const server = http2.createSecureServer({
+          'key': fs.readFileSync(path.join(__dirname, './ssl/localhost-privkey.pem')),
+          'cert': fs.readFileSync(path.join(__dirname, './ssl/localhost-cert.pem')),
+  });
+
+  server.on('error', (error) => console.error(error));
+
+  server.on('stream', async (stream, headers) => {
+    stream.respond({
+      'content-type': MIMETYPES[path.extname(headers[':path'] === '/' ? 'index.html' : headers[':path'])],
+      ':status': 200,
+    })
+    stream.end(await readFile(`${dirname}/dist/${headers[':path'] === '/' ? 'index.html' : headers[':path']}`, 'utf8'));
+  })
+
+  server.listen(port);
+  console.log(`Server working on localhost:${port}`);
+})();

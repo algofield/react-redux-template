@@ -8,6 +8,7 @@
     "prod": "npm-run-all --parallel prod:*",
     "prod:build": "webpack --config config/webpack.prod.js",
     "prod:serve": "node src/server",
+    "serve": "nodemon --watch src/server",
     "test": "jest --watch",
     "lint": "eslint src tests --fix"
   },
@@ -49,9 +50,9 @@
     "@reduxjs/toolkit": "^1.9.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "http2-express-bridge": "^1.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "spdy": "^4.0.2"
   }
 }

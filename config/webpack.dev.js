@@ -32,6 +32,7 @@ const devConfig = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../src', 'client', 'templates', 'index.ejs'),
       filename: 'index.html',
+      favicon: path.join(__dirname, '../src', 'client', 'images', 'favicon', 'favicon.ico'),
       inject: 'body',
       // minify: true,
     }),
