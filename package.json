@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zoundzs/react-redux-template.git"
+    "url": "git+https://github.com/algofield/react-redux-template.git"
   },
   "author": "cj dagostino",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zoundzs/react-redux-template/issues"
+    "url": "https://github.com/algofield/react-redux-template/issues"
   },
-  "homepage": "https://github.com/zoundzs/react-redux-template#readme",
+  "homepage": "https://github.com/algofield/react-redux-template#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
